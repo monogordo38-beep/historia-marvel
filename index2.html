@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ephraim Winslow — Historia (Fusión y Marcos)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@700&family=Barlow+Condensed:wght@300;400;600&display=swap');
+  
+  * {margin:0;padding:0;box-sizing:border-box;}
+  body {background:#0a0a0a;font-family:'Share Tech Mono',monospace;color:#d0d0d0;}
+
+  .wrapper {max-width:860px;margin:0 auto;background:#0f0f0f;border:1px solid #1f1f1f;position:relative;overflow:hidden;}
+
+  /* NOISE */
+  .wrapper::before {content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events:none;z-index:10;opacity:0.4;}
+
+  /* ── HEADER HERO ── */
+  .hero {position:relative;height:380px;overflow:hidden;background:#080808;} /* Diseño modificado para eliminar grid */
+
+  .hero-img {position:absolute;top:0;height:100%;width:60%;object-fit:cover;object-position:top center;} /* Modificado para posicionamiento absoluto y superposición */
+
+  .hero-img:nth-child(1) {left:0;filter:sepia(20%) contrast(1.3) saturate(0.6);opacity:0.75;
+    /* Máscara de fusión: suave de opaco en la izq. a transparente en la der. */
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  }
+
+  .hero-img:nth-child(2) {right:0;filter:grayscale(100%) contrast(1.5);opacity:0.45;mix-blend-mode:screen;
+    /* Máscara de fusión: suave de transparente en la izq. a opaco en la der. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+  }
+
+  .hero-overlay {position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 35%,#0f0f0f 100%),
+               linear-gradient(90deg,#0f0f0f 0%,transparent 12%,transparent 88%,#0f0f0f 100%);
+    z-index:2;}
+
+  /* acento rojo diagonal */
+  .hero-slash {position:absolute;top:0;left:0;width:3px;height:100%;
+    background:linear-gradient(180deg,transparent,#8b0000 40%,transparent);
+    z-index:3;opacity:0.6;}
+
+  /* número de archivo */
+  .hero-file {position:absolute;top:16px;right:20px;z-index:4;
+    font-size:9px;letter-spacing:4px;color:#ffffff;opacity:0.7;}
+
+  .hero-text {position:absolute;bottom:0;left:0;right:0;z-index:5;padding:18px 36px 28px;}
+  .tag-line {font-size:9px;letter-spacing:5px;color:#8b0000;text-transform:uppercase;margin-bottom:8px;}
+  .hero-name {font-family:'Oswald',sans-serif;font-size:54px;font-weight:700;
+    line-height:0.92;color:#e8e8e8;text-transform:uppercase;letter-spacing:-1px;}
+  .hero-name span {display:block;font-size:32px;letter-spacing:5px;color:#1a1aff;}
+  .hero-sub {margin-top:10px;font-size:9px;color:#3a3a3a;letter-spacing:4px;text-transform:uppercase;
+    border-left:2px solid #8b0000;padding-left:10px;}
+
+  /* DIVIDER */
+  .divider {height:1px;background:linear-gradient(90deg,#8b0000,#1a1aff 45%,transparent);margin:0 36px;position:relative;z-index:5;}
+
+  /* ── BODY ── */
+  .body {padding:30px 36px 36px;position:relative;z-index:5;}
+
+  /* INTRO QUOTE */
+  .intro-quote {text-align:center;margin-bottom:32px;padding:0 24px;}
+  .intro-quote p {font-family:'Barlow Condensed',sans-serif;font-weight:300;font-size:13px;
+    line-height:1.9;color:#5a5a5a;letter-spacing:0.3px;}
+  .intro-quote p strong {color:#c8c8c8;font-weight:600;}
+  .intro-quote em {color:#8b0000;font-style:normal;}
+
+  /* SECTION LABEL */
+  .sec-label {font-size:9px;letter-spacing:5px;color:#8b0000;text-transform:uppercase;
+    margin-bottom:12px;padding-bottom:5px;border-bottom:1px solid #1f1f1f;}
+
+  /* DATA ROWS */
+  .data-block {margin-bottom:28px;}
+  .data-row {display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:1px solid #111;padding:5px 0;font-size:11px;}
+  .data-key {color:#3a3a3a;text-transform:uppercase;font-size:9px;letter-spacing:2px;}
+  .data-val {color:#c8c8c8;font-size:11px;text-align:right;max-width:65%;}
+  .data-val.red {color:#c0392b;}
+  .data-val.blue {color:#3a3aff;}
+  .data-val.dim {color:#5a5a5a;}
+
+  /* TWO COLUMNS */
+  .cols {display:grid;grid-template-columns:1fr 1fr;gap:0 44px;margin-bottom:0;}
+
+  /* IMAGE FULL WIDTH */
+.img-full {width:100%;height:260px;object-fit:cover;object-position:center;
+  filter:grayscale(60%) contrast(1.35);opacity:0.55;display:block;
+  /* --- NUEVAS LINEAS PARA DIFUMINAR BORDES LATERALES --- */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+  .img-panel {position:relative;overflow:hidden;margin:28px 0;}
+  .img-panel::before {content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,#0f0f0f 0%,transparent 18%,transparent 82%,#0f0f0f 100%);
+    z-index:1;pointer-events:none;}
+  .img-caption {position:absolute;bottom:12px;right:20px;z-index:2;
+    font-size:8px;letter-spacing:3px;color:#ffffff;text-transform:uppercase;}
+
+  /* IMAGE SIDE */
+  .img-side-wrap {display:grid;grid-template-columns:1fr 200px;gap:0 28px;align-items:start;margin-bottom:28px;}
+  .img-side {width:100%;height:260px;object-fit:cover;object-position:top;
+    filter:grayscale(80%) contrast(1.4);opacity:0.5;
+    /* Nuevo: Marco rojo añadido aquí */
+    
+  }
+
+  /* ACCENT LINE */
+  .accent-h {height:1px;background:#111;margin:24px 0;position:relative;}
+  .accent-h::before {content:'';position:absolute;left:0;top:0;width:50px;height:100%;background:#8b0000;opacity:0.5;}
+
+  /* PSYCH & COMBAT: narrative blocks */
+  .narrative-block {margin-bottom:28px;}
+  .narrative-block p {font-family:'Barlow Condensed',sans-serif;font-weight:300;
+    font-size:12px;line-height:1.85;color:#5a5a5a;letter-spacing:0.3px;margin-bottom:10px;}
+  .narrative-block p strong {color:#b0b0b0;font-weight:600;}
+
+  /* OPERACIONES */
+  .op-item {border-left:2px solid #1f1f1f;padding:10px 0 10px 14px;margin-bottom:14px;}
+  .op-item:hover {border-left-color:#8b0000;}
+  .op-title {font-family:'Oswald',sans-serif;font-size:14px;color:#c8c8c8;
+    text-transform:uppercase;letter-spacing:2px;margin-bottom:4px;}
+  .op-meta {font-size:8px;color:#3a3a3a;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;}
+  .op-meta span {color:#8b0000;margin-right:8px;}
+  .op-desc {font-family:'Barlow Condensed',sans-serif;font-weight:300;
+    font-size:11px;line-height:1.7;color:#5a5a5a;}
+
+  /* STRIP INFERIOR (Modificado para fusión suave, igual que la cabecera) */
+  .img-strip {position:relative;height:220px;overflow:hidden;}
+
+  .strip-img {position:absolute;top:0;height:100%;width:60%;object-fit:cover;object-position:top;}
+
+  .strip-img:nth-child(1) {left:0;filter:grayscale(40%) contrast(1.3) saturate(0.7);opacity:0.6;
+    /* Máscara de fusión: suave de opaco en la izq. a transparente en la der. */
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+    mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  }
+
+  .strip-img:nth-child(2) {right:0;filter:grayscale(90%) contrast(1.5);opacity:0.4;mix-blend-mode:screen;
+    /* Máscara de fusión: suave de transparente en la izq. a opaco en la der. */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+  }
+
+  .img-strip::after {content:'';position:absolute;inset:0;
+    background:linear-gradient(180deg,#0f0f0f 0%,transparent 22%,transparent 75%,#0f0f0f 100%);
+    pointer-events:none;}
+
+  /* FOOTER */
+  .footer {padding:14px 36px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #111;position:relative;z-index:5;}
+  .footer-code {font-size:8px;color:#1f1f1f;letter-spacing:3px;}
+  .footer-mark {font-size:8px;color:#1a1aff;opacity:0.4;letter-spacing:2px;}
+
+  /* CROSSHAIR deco */
+  .crosshair-deco {position:absolute;top:24px;left:36px;z-index:4;
+    width:18px;height:18px;opacity:0.2;}
+  .crosshair-deco::before {content:'';position:absolute;width:1px;height:100%;
+    top:0;left:50%;background:#c8c8c8;}
+  .crosshair-deco::after {content:'';position:absolute;width:100%;height:1px;
+    top:50%;left:0;background:#c8c8c8;}
+
+  /* CLASSIFICATION badge */
+  .badge {display:inline-block;font-size:7px;letter-spacing:3px;text-transform:uppercase;
+    border:1px solid #8b000066;color:#c0392b;padding:1px 6px;margin-left:8px;vertical-align:middle;}
+  .badge.blue {border-color:#1a1aff44;color:#3a3aff;}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <!-- He usado imágenes de prueba de Picsum de nuevo para esta vista previa -->
+    <img class="hero-img" src="https://i.imgur.com/Zr3ViL0.jpeg" alt="Imagen de cabecera 1">
+    <img class="hero-img" src="https://i.imgur.com/9ze3Zpe.png" alt="Imagen de cabecera 2">
+    <div class="hero-overlay"></div>
+    <div class="hero-slash"></div>
+    <div class="hero-file">FILE #0041 — CLASIFICADO</div>
+    <div class="crosshair-deco"></div>
+    <div class="hero-text">
+      <div class="hero-name">Ephraim Winslow<span>Bullseye</span></div>
+      <div class="hero-sub">Operativo en activo</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══ BODY ══ -->
+  <div class="body">
+
+    <!-- INTRO -->
+    <div class="intro-quote">
+      <p>
+        <strong>Ephraim Winslow</strong> nació para ser una estrella. A ojos de sus padres era poco más que un angelito: un chico sano, sin aparentes preocupaciones y con enorme talento para el deporte. Sin embargo, había algo en él que inquietaba a los demás niños de su edad. Una calma extraña, casi mecánica, con la que afrontaba situaciones que a cualquier otro le habrían revuelto el estómago. <em>Su talento para la puntería lo convirtió en algo más que un atleta. Lo convirtió en una herramienta.</em>
+      </p>
+    </div>
+
+    <div class="accent-h"></div>
+
+    <!-- DATOS GENERALES + FÍSICOS en dos columnas -->
+    <div class="cols">
+
+      <div class="data-block">
+        <div class="sec-label">// Datos generales</div>
+        <div class="data-row"><span class="data-key">Nombre real</span><span class="data-val">Ephraim Winslow</span></div>
+        <div class="data-row"><span class="data-key">Alias</span><span class="data-val blue">Bullseye</span></div>
+        <div class="data-row"><span class="data-key">Nacionalidad</span><span class="data-val">Estadounidense</span></div>
+        <div class="data-row"><span class="data-key">Origen</span><span class="data-val dim">Louisiana</span></div>
+        <div class="data-row"><span class="data-key">Afiliación</span><span class="data-val">Babel Corp <span style="color:#2a8a2a">/ Doom Academy</span></span></div>
+        <div class="data-row"><span class="data-key">Ocupación</span><span class="data-val red">Agente independiente contratado</span></div>
+        <div class="data-row"><span class="data-key">Estado</span><span class="data-val">Activo</span></div>
+      </div>
+
+      <div class="data-block">
+        <div class="sec-label">// Datos físicos</div>
+        <div class="data-row"><span class="data-key">Edad</span><span class="data-val">31 años</span></div>
+        <div class="data-row"><span class="data-key">Altura</span><span class="data-val">186 cm</span></div>
+        <div class="data-row"><span class="data-key">Peso</span><span class="data-val">91 kg</span></div>
+        <div class="data-row"><span class="data-key">Ojos</span><span class="data-val">Verde pardo</span></div>
+        <div class="data-row"><span class="data-key">Cabello</span><span class="data-val">Castaño, corto</span></div>
+        <div class="data-row"><span class="data-key">Complexión</span><span class="data-val">Atlética / Ectomorfa</span></div>
+        <div class="data-row"><span class="data-key">Rasgo característico</span><span class="data-val dim">Cicatriz mejilla izq.</span></div>
+      </div>
+
+    </div>
+
+    <!-- IMAGEN FULL — cuerpo completo -->
+    <div class="img-panel">
+      <img class="img-full" src="https://i.imgur.com/sByOU4f.jpeg" alt="Foto de cuerpo completo de Ephraim">
+      <div class="img-caption">You were just a kid.</div>
+    </div>
+
+    <!-- DATOS PSICOLÓGICOS -->
+    <div class="data-block">
+      <div class="sec-label">// Perfil psicológico</div>
+      <div class="narrative-block">
+        <p>
+          <strong>Ephraim no es un monstruo que disfruta del caos.</strong> Eso lo haría simple, predecible, fácil de catalogar. Lo que Ephraim representa es algo bastante más perturbador: un <strong>ser humano perfectamente funcional</strong> al que le falta por completo la pieza que detiene a los demás.
+        </p>
+        <p>
+          La violencia, para él, no genera horror —simplemente no genera nada especial. Es un medio. Un medio que domina mejor que nadie. El diagnóstico más preciso no sería el del asesino en serie arquetípico, sino el del <strong>psicópata instrumental</strong>: alguien cuya capacidad para la violencia no es impulsada por el impulso, sino por la lógica.
+        </p>
+        <p>
+          <strong>Su incapacidad de sentir lo vuelve una herramienta.</strong> No tiene una agenda propia más allá de la supervivencia y la ejecución. Necesita un código externo —una estructura, una figura de autoridad, una causa— que le diga cómo dirigir esa capacidad. Sin ella, no se convierte en una amenaza indiscriminada: simplemente flota, sin propósito, sin dirección y sin motivación. Eso es lo que lo hace tan peligroso cuando se le da un objetivo.
+        </p>
+      </div>
+    </div>
+
+    <div class="accent-h"></div>
+
+    <!-- DATOS DE COMBATE + imagen lateral -->
+    <div class="img-side-wrap">
+      <div>
+        <div class="data-block" style="margin-top:6px;">
+          <div class="sec-label">// Datos de combate </div>
+          <div class="data-row"><span class="data-key">Capacidades</span><span class="data-val red">Puntería extraordinaria y cálculo balístico inhumano</span></div>
+          <div class="data-row"><span class="data-key">Hábitos combativos</span><span class="data-val dim">Improvisación permanente</span></div>
+          <div class="data-row"><span class="data-key">Peligrosidad</span><span class="data-val dim">Clasificación ALPHA</span></div>
+          <div class="data-row"><span class="data-key">Rango efectivo</span><span class="data-val">Hasta tres kilómetros con el armamento adecuado</span></div>
+          <div class="data-row"><span class="data-key">Artes marciales</span><span class="data-val dim">Intruído en más de dieciseis disciplinas</span></div>
+        </div>
+      </div>
+      <!-- Esta es la imagen que ahora tiene el marco rojo -->
+      <img class="img-side" src="https://i.imgur.com/TVB9lUK.png" alt="Ephraim en posición de combate">
+    </div>
+
+    <div class="accent-h"></div>
+
+    <!-- OPERACIONES DESTACADAS -->
+    <div class="data-block">
+      <div class="sec-label">// Operaciones destacadas</div>
+
+      <div class="op-item">
+        <div class="op-title">Operación Zalsh</div>
+        <div class="op-meta"><span>Asesinato / Espionaje</span>Europa Central — Fecha clasificada</div>
+        <div class="op-desc">Infiltración de larga duración al servicio de una entidad sin identificar. Objetivo primario: Asesinato de Victor von Doom. Resultado: Clasificado. </div>
+      </div>
+
+      <div class="op-item">
+        <div class="op-title">Contrato Babel Corp</div>
+        <div class="op-meta"><span>PMC / Seguridad corporativa</span>Territorio continental — Activo</div>
+        <div class="op-desc">Figura como analista de seguridad senior. Tarea real: revisar protocolos, pasar auditorías, redactar informes. Identidad encubierta impecable. Sigue órdenes de los directivos para tareas de asesinato.</div>
+      </div>
+
+      <div class="op-item">
+        <div class="op-title">Operación Yerek</div>
+        <div class="op-meta"><span>Asesinato</span>Armenia — Azerbaijan</div>
+        <div class="op-desc">Contrato privado por el gobierno Armenio durante la ocupación Azerbajana de su territorio. Objetivo primario: Asesinato del presidente de Azerbaiján. Resultado: Éxito en las primeras 24 horas del contrato.</div>
+      </div>
+
+      <div class="op-item">
+        <div class="op-title">[CLASIFICADO — Código #7263]</div>
+        <div class="op-meta"><span>Operativo de larga duración</span>Datos sellados por la CIA</div>
+        <div class="op-desc">Registro inaccesible. Operación encubierta en África.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- ══ STRIP INFERIOR ══ -->
+  <div class="img-strip">
+    <img class="strip-img" src="https://i.imgur.com/RDUQlSO.png" alt="Imagen inferior 1">
+    <img class="strip-img" src="https://i.imgur.com/oDJxfza.png" alt="Imagen inferior 2">
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <div class="footer">
+    <span class="footer-code">CIA FILE #0041 &nbsp;&#9632;&nbsp; LEVEL 5 &nbsp;&#9632;&nbsp;</span>
+    <span class="footer-mark">MARVEL RP &nbsp;&#9632;&nbsp;</span>
+  </div>
+
+</div>
+</body>
+</html>
